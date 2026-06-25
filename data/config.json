@@ -1,0 +1,13 @@
+{
+  "email": "contact@infinityrec.com",
+  "whatsapp": "+13077856979",
+  "currency": "USD",
+  "currency_symbol": "$",
+  "prices": {
+    "1_month": "14.99",
+    "3_months": "34.99",
+    "6_months": "54.99",
+    "12_months": "84.99"
+  },
+  "regions": ["USA", "Canada", "UK"]
+}

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activate IPTV Subscription – InfinityRec</title>
+  <meta name="description" content="Activate your InfinityRec IPTV subscription instantly. Enter your Xtream credentials to verify and start streaming 15,000+ channels in 4K.">
+  <meta name="keywords" content="activate iptv, xtream codes activation, iptv login, iptv credentials, infinityrec activate">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0D0F12; --bg2: #141720; --border: #1E2028;
+      --text: #E5E7EB; --muted: #6B7280; --blue: #3B82F6; --purple: #7C3AED;
+      --green: #10B981; --red: #EF4444;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    a { color: var(--blue); text-decoration: none; }
+    
+    /* NAV */
+    nav { background: var(--bg); border-bottom: 1px solid var(--border); padding: 0 24px; position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-logo img { height: 36px; }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a { color: var(--muted); padding: 8px 12px; border-radius: 8px; font-size: 14px; transition: color .2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: linear-gradient(135deg, var(--purple), var(--blue)); color: #fff !important; padding: 8px 16px !important; border-radius: 8px; font-weight: 600; }
+
+    /* HERO */
+    .hero { padding: 80px 24px 40px; text-align: center; }
+    .hero .pill { display: inline-block; background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.3); color: var(--green); font-size: 12px; padding: 4px 14px; border-radius: 999px; margin-bottom: 20px; letter-spacing: .04em; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; margin-bottom: 16px; background: linear-gradient(135deg, #fff 40%, #60A5FA); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero p { color: var(--muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto 40px; }
+
+    /* STEPS BAR */
+    .steps { display: flex; justify-content: center; gap: 0; max-width: 600px; margin: 0 auto 56px; }
+    .step { display: flex; flex-direction: column; align-items: center; flex: 1; }
+    .step-num { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; z-index: 1; }
+    .step.active .step-num { background: var(--blue); color: #fff; }
+    .step.done .step-num { background: var(--green); color: #fff; }
+    .step.inactive .step-num { background: var(--bg2); color: var(--muted); border: 1px solid var(--border); }
+    .step-label { font-size: 11px; color: var(--muted); margin-top: 6px; text-align: center; }
+    .step-line { flex: 1; height: 2px; background: var(--border); margin-top: 18px; max-width: 80px; }
+
+    /* PANEL */
+    .panel { max-width: 580px; margin: 0 auto; padding: 0 24px 80px; }
+    .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 36px; margin-bottom: 24px; }
+
+    /* FORM */
+    .form-group { margin-bottom: 20px; }
+    label { display: block; font-size: 13px; font-weight: 600; color: #9CA3AF; margin-bottom: 8px; letter-spacing: .03em; }
+    input[type="text"], input[type="password"], input[type="url"] {
+      width: 100%; background: rgba(255,255,255,.04); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 16px; font-size: 15px; color: var(--text);
+      font-family: inherit; transition: border-color .2s, box-shadow .2s; outline: none;
+    }
+    input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(59,130,246,.15); }
+    input.success { border-color: var(--green); }
+    input.error   { border-color: var(--red); }
+    .input-hint { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+    /* TOGGLE */
+    .toggle-row { display: flex; gap: 8px; margin-bottom: 24px; }
+    .toggle-btn { flex: 1; padding: 10px; border-radius: 10px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 13px; font-weight: 500; cursor: pointer; transition: all .2s; font-family: inherit; }
+    .toggle-btn.active { background: rgba(59,130,246,.15); border-color: var(--blue); color: var(--blue); }
+
+    /* SUBMIT BTN */
+    .submit-btn {
+      width: 100%; padding: 14px; border-radius: 12px; border: none; cursor: pointer;
+      font-size: 15px; font-weight: 700; font-family: inherit;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: #fff; transition: opacity .2s, transform .1s;
+    }
+    .submit-btn:hover { opacity: .9; transform: translateY(-1px); }
+    .submit-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+    /* STATUS */
+    #status-box { display: none; border-radius: 14px; padding: 20px 24px; margin-top: 20px; }
+    #status-box.loading { background: rgba(59,130,246,.08); border: 1px solid rgba(59,130,246,.2); }
+    #status-box.success { background: rgba(16,185,129,.08); border: 1px solid rgba(16,185,129,.2); }
+    #status-box.error   { background: rgba(239,68,68,.08);  border: 1px solid rgba(239,68,68,.2);  }
+    .status-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+    .status-body  { font-size: 13px; color: var(--muted); }
+    .loading .status-title { color: var(--blue); }
+    .success .status-title { color: var(--green); }
+    .error   .status-title { color: var(--red); }
+
+    /* ACCOUNT RESULT */
+    #account-result { display: none; }
+    .account-card { background: rgba(16,185,129,.06); border: 1px solid rgba(16,185,129,.2); border-radius: 16px; padding: 28px; margin-top: 24px; }
+    .account-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .account-avatar { width: 52px; height: 52px; border-radius: 12px; background: linear-gradient(135deg,var(--purple),var(--blue)); display: flex; align-items: center; justify-content: center; font-size: 22px; }
+    .account-info h3 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .account-info p  { font-size: 13px; color: var(--green); font-weight: 500; }
+    .account-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .account-stat { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+    .account-stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
+    .account-stat .value { font-size: 15px; font-weight: 700; }
+    .value.ok { color: var(--green); }
+    .value.warn { color: #F59E0B; }
+    .value.bad { color: var(--red); }
+
+    /* M3U COPY */
+    .m3u-box { margin-top: 20px; }
+    .m3u-label { font-size: 12px; color: var(--muted); margin-bottom: 8px; font-weight: 600; letter-spacing: .03em; }
+    .m3u-input-row { display: flex; gap: 8px; }
+    .m3u-input-row input { flex: 1; font-family: 'Courier New', monospace; font-size: 12px; background: var(--bg); }
+    .copy-btn { padding: 10px 16px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 13px; cursor: pointer; font-family: inherit; transition: all .2s; white-space: nowrap; }
+    .copy-btn:hover { border-color: var(--blue); color: var(--blue); }
+    .copy-btn.copied { border-color: var(--green); color: var(--green); }
+
+    /* INFO CARDS */
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .info-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+    .info-card .icon { font-size: 24px; margin-bottom: 10px; }
+    .info-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .info-card p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+    /* FOOTER */
+    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 24px; text-align: center; }
+    footer p { color: var(--muted); font-size: 13px; }
+
+    @media (max-width: 640px) {
+      .info-grid, .account-grid { grid-template-columns: 1fr; }
+      .toggle-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logoinfinityrec.webp" alt="InfinityRec IPTV" loading="lazy">
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="pillar.html">Guide</a>
+      <a href="setup-guide.html">Setup</a>
+      <a href="about.html">Support</a>
+      <a href="index.html#pricing" class="nav-cta">Free Trial</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <span class="pill">✅ Instant Activation</span>
+  <h1>Activate Your IPTV Subscription</h1>
+  <p>Enter your Xtream credentials to verify your account and start streaming 15,000+ channels in 4K instantly.</p>
+
+  <div class="steps">
+    <div class="step done">
+      <div class="step-num">✓</div>
+      <div class="step-label">Purchase</div>
+    </div>
+    <div class="step-line"></div>
+    <div class="step active">
+      <div class="step-num">2</div>
+      <div class="step-label">Activate</div>
+    </div>
+    <div class="step-line"></div>
+    <div class="step inactive">
+      <div class="step-num">3</div>
+      <div class="step-label">Stream</div>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+
+  <!-- Info cards -->
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="icon">⚡</div>
+      <h4>Instant Verification</h4>
+      <p>Your account status is checked in real-time via the Xtream API.</p>
+    </div>
+    <div class="info-card">
+      <div class="icon">🔒</div>
+      <h4>100% Secure</h4>
+      <p>Your credentials are never stored. Verification runs client-side only.</p>
+    </div>
+    <div class="info-card">
+      <div class="icon">📱</div>
+      <h4>M3U Link Ready</h4>
+      <p>Get your M3U playlist URL instantly to use on any IPTV app.</p>
+    </div>
+    <div class="info-card">
+      <div class="icon">🎬</div>
+      <h4>15,000+ Channels</h4>
+      <p>Access live TV, VOD, sports, and Pay-Per-View once activated.</p>
+    </div>
+  </div>
+
+  <!-- Activation Form -->
+  <div class="card">
+    <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:8px;">Enter Your Xtream Credentials</h2>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:24px;">You received these by email after purchasing your subscription.</p>
+
+    <!-- Connection type toggle -->
+    <div class="toggle-row">
+      <button class="toggle-btn active" id="btn-xtream" onclick="setMode('xtream')">📡 Xtream Codes</button>
+      <button class="toggle-btn" id="btn-m3u" onclick="setMode('m3u')">📋 M3U URL</button>
+    </div>
+
+    <!-- Xtream mode -->
+    <div id="xtream-form">
+      <div class="form-group">
+        <label>SERVER URL</label>
+        <input type="url" id="server-url" placeholder="http://yourserver.com:8080" autocomplete="off">
+        <div class="input-hint">The Xtream server URL provided in your email (include port number)</div>
+      </div>
+      <div class="form-group">
+        <label>USERNAME</label>
+        <input type="text" id="username" placeholder="your_username" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label>PASSWORD</label>
+        <input type="password" id="password" placeholder="your_password" autocomplete="off">
+      </div>
+    </div>
+
+    <!-- M3U mode -->
+    <div id="m3u-form" style="display:none;">
+      <div class="form-group">
+        <label>M3U PLAYLIST URL</label>
+        <input type="url" id="m3u-url" placeholder="http://server.com:8080/get.php?username=...&password=...&type=m3u_plus">
+        <div class="input-hint">Paste the full M3U URL you received by email</div>
+      </div>
+    </div>
+
+    <button class="submit-btn" id="verify-btn" onclick="verifyAccount()">
+      🔍 Verify & Activate Account
+    </button>
+
+    <!-- Status -->
+    <div id="status-box">
+      <div class="status-title" id="status-title"></div>
+      <div class="status-body"  id="status-body"></div>
+    </div>
+  </div>
+
+  <!-- Account Result -->
+  <div id="account-result">
+    <div class="account-card">
+      <div class="account-header">
+        <div class="account-avatar">📺</div>
+        <div class="account-info">
+          <h3 id="res-username">—</h3>
+          <p id="res-status">Active Subscription</p>
+        </div>
+      </div>
+
+      <div class="account-grid">
+        <div class="account-stat">
+          <div class="label">Expiry Date</div>
+          <div class="value ok" id="res-expiry">—</div>
+        </div>
+        <div class="account-stat">
+          <div class="label">Max Connections</div>
+          <div class="value ok" id="res-connections">—</div>
+        </div>
+        <div class="account-stat">
+          <div class="label">Active Connections</div>
+          <div class="value" id="res-active">—</div>
+        </div>
+        <div class="account-stat">
+          <div class="label">Trial Account</div>
+          <div class="value" id="res-trial">—</div>
+        </div>
+      </div>
+
+      <div class="m3u-box" id="m3u-result-box">
+        <div class="m3u-label">YOUR M3U PLAYLIST URL</div>
+        <div class="m3u-input-row">
+          <input type="text" id="m3u-link" readonly>
+          <button class="copy-btn" id="copy-btn" onclick="copyM3U()">📋 Copy</button>
+        </div>
+      </div>
+
+      <div style="margin-top:20px;padding:16px;background:rgba(16,185,129,.06);border-radius:10px;border:1px solid rgba(16,185,129,.15);">
+        <p style="font-size:13px;color:#9CA3AF;">
+          🎉 <strong style="color:#10B981;">Account verified!</strong> 
+          Open your IPTV app (IPTV Smarters, TiviMate, GSE Smart IPTV) and enter these credentials or paste your M3U URL.
+          Need help? Visit our <a href="setup-guide.html">Setup Guide</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help section -->
+  <div class="card" style="margin-top:24px;">
+    <h3 style="font-size:1rem;font-weight:700;margin-bottom:16px;">❓ Don't have credentials yet?</h3>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:16px;">
+      After purchasing a subscription, credentials are sent to your email within 5–15 minutes. 
+      Check your spam folder if you haven't received them.
+    </p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <a href="index.html#pricing" style="display:inline-block;background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;padding:10px 20px;border-radius:10px;font-size:14px;font-weight:600;">Subscribe Now</a>
+      <a href="about.html#contact" style="display:inline-block;border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:10px;font-size:14px;">Contact Support</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 InfinityRec IPTV — Serving USA, UK &amp; Canada | <a href="privacy.html">Privacy</a> | <a href="terms.html">Terms</a></p>
+</footer>
+
+<script>
+  let currentMode = 'xtream';
+
+  function setMode(mode) {
+    currentMode = mode;
+    document.getElementById('xtream-form').style.display = mode === 'xtream' ? 'block' : 'none';
+    document.getElementById('m3u-form').style.display    = mode === 'm3u'    ? 'block' : 'none';
+    document.getElementById('btn-xtream').classList.toggle('active', mode === 'xtream');
+    document.getElementById('btn-m3u').classList.toggle('active',    mode === 'm3u');
+    hideStatus();
+    document.getElementById('account-result').style.display = 'none';
+  }
+
+  function showStatus(type, title, body) {
+    const box = document.getElementById('status-box');
+    box.className = type;
+    box.style.display = 'block';
+    document.getElementById('status-title').textContent = title;
+    document.getElementById('status-body').textContent  = body;
+  }
+
+  function hideStatus() {
+    document.getElementById('status-box').style.display = 'none';
+  }
+
+  async function verifyAccount() {
+    const btn = document.getElementById('verify-btn');
+    btn.disabled = true;
+    btn.textContent = '⏳ Verifying…';
+    hideStatus();
+    document.getElementById('account-result').style.display = 'none';
+
+    try {
+      if (currentMode === 'xtream') {
+        await verifyXtream();
+      } else {
+        await verifyM3U();
+      }
+    } catch(e) {
+      showStatus('error', '❌ Verification Failed', e.message || 'Could not connect. Check your credentials and try again.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '🔍 Verify & Activate Account';
+    }
+  }
+
+  async function verifyXtream() {
+    const server   = document.getElementById('server-url').value.trim().replace(/\/$/, '');
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    if (!server || !username || !password) {
+      throw new Error('Please fill in all fields: Server URL, Username, and Password.');
+    }
+    if (!server.startsWith('http')) {
+      throw new Error('Server URL must start with http:// or https://');
+    }
+
+    showStatus('loading', '🔄 Connecting to server…', 'Verifying your credentials with the Xtream API…');
+
+    const apiUrl = `${server}/player_api.php?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
+
+    const res = await fetch(apiUrl, { signal: AbortSignal.timeout(10000) });
+    if (!res.ok) throw new Error(`Server returned error ${res.status}. Check your server URL.`);
+
+    const data = await res.json();
+    if (!data || !data.user_info) throw new Error('Invalid response from server. Check your credentials.');
+
+    const info = data.user_info;
+    if (info.auth == 0 || info.auth === false || info.status === 'Banned') {
+      throw new Error('Authentication failed. Your username or password is incorrect.');
+    }
+
+    // Success
+    hideStatus();
+    displayResult(info, server, username, password);
+  }
+
+  async function verifyM3U() {
+    const m3uUrl = document.getElementById('m3u-url').value.trim();
+    if (!m3uUrl) throw new Error('Please enter your M3U URL.');
+    if (!m3uUrl.startsWith('http')) throw new Error('M3U URL must start with http:// or https://');
+
+    showStatus('loading', '🔄 Checking M3U URL…', 'Attempting to reach your playlist endpoint…');
+
+    // Try to extract xtream params from M3U URL
+    try {
+      const url = new URL(m3uUrl);
+      const server   = url.origin + (url.port ? '' : '');
+      const username = url.searchParams.get('username') || '—';
+      const password = url.searchParams.get('password') || '—';
+      hideStatus();
+      displayResult({ username, exp_date: null, max_connections: '?', active_cons: '0', is_trial: '0', status: 'Active' }, 
+                    server, username, password, m3uUrl);
+    } catch(e) {
+      throw new Error('Could not parse M3U URL. Make sure you copied the full URL.');
+    }
+  }
+
+  function displayResult(info, server, username, password, m3uOverride) {
+    document.getElementById('res-username').textContent = info.username || username;
+
+    const expiry = info.exp_date
+      ? new Date(parseInt(info.exp_date) * 1000).toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'})
+      : 'Unlimited / Trial';
+    document.getElementById('res-expiry').textContent = expiry;
+
+    const maxCons = info.max_connections || '1';
+    document.getElementById('res-connections').textContent = maxCons + ' connection(s)';
+
+    const active = parseInt(info.active_cons || 0);
+    const activEl = document.getElementById('res-active');
+    activEl.textContent = active + ' active';
+    activEl.className = 'value ' + (active > 0 ? 'warn' : 'ok');
+
+    const isTrial = info.is_trial == '1';
+    const trialEl = document.getElementById('res-trial');
+    trialEl.textContent = isTrial ? 'Yes (Trial)' : 'No (Full)';
+    trialEl.className = 'value ' + (isTrial ? 'warn' : 'ok');
+
+    document.getElementById('res-status').textContent = isTrial ? '🕐 Trial Account' : '✅ Active Subscription';
+
+    const m3uLink = m3uOverride ||
+      `${server}/get.php?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&type=m3u_plus&output=ts`;
+    document.getElementById('m3u-link').value = m3uLink;
+
+    document.getElementById('account-result').style.display = 'block';
+    document.getElementById('account-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function copyM3U() {
+    const input = document.getElementById('m3u-link');
+    navigator.clipboard.writeText(input.value).then(() => {
+      const btn = document.getElementById('copy-btn');
+      btn.textContent = '✅ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = '📋 Copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>

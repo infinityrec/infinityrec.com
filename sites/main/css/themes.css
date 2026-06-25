@@ -1,0 +1,258 @@
+/* ─────────────────────────────────────────────────────────────────
+   themes.css  –  Responsive extras + Light-mode
+   Loaded after style.css; never modifies style.css.
+   ───────────────────────────────────────────────────────────────── */
+
+/* ── STEPS (used in index.html "How It Works" section) ───────── */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 1rem;
+}
+.step-item {
+  background: rgba(20, 20, 30, 0.7);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.step-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.15);
+}
+.step-num {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-pink));
+  color: #0A0A0F;
+  font-family: var(--font-heading, 'Orbitron', sans-serif);
+  font-size: 1.3rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+}
+
+/* ── LIGHT-MODE TOKENS ───────────────────────────────────────── */
+body.light-mode {
+  --bg-body:     #f1f4f9;
+  --bg-card:     #ffffff;
+  --bg-surface:  #e8ecf4;
+  --text-heading: #0f172a;
+  --text-body:    #1e293b;
+  --text-muted:   #475569;
+  --border-color: #cbd5e1;
+  --border-neon:         1px solid rgba(0, 160, 200, 0.3);
+  --border-neon-hover:   1px solid rgba(0, 160, 200, 0.7);
+  --glow-cyan-box:       0 2px 14px rgba(0, 160, 200, 0.12);
+  --glow-cyan-box-hover: 0 4px 22px rgba(0, 160, 200, 0.28);
+}
+
+/* ── LIGHT-MODE COMPONENT OVERRIDES ─────────────────────────── */
+body.light-mode {
+  background:
+    radial-gradient(ellipse at 15% 20%, rgba(0, 240, 255, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 85% 80%, rgba(255, 45, 149, 0.10) 0%, transparent 60%),
+    #f1f4f9;
+  background-attachment: fixed;
+  color: var(--text-body);
+}
+
+body.light-mode h1,
+body.light-mode h2,
+body.light-mode h3,
+body.light-mode h4,
+body.light-mode h5,
+body.light-mode h6 {
+  color: var(--text-heading);
+}
+
+body.light-mode p { color: var(--text-body); }
+
+body.light-mode .navbar {
+  background-color: rgba(241, 245, 255, 0.94);
+  border-bottom: 1px solid rgba(0, 160, 200, 0.2);
+}
+
+body.light-mode .nav-links a { color: var(--text-heading); }
+
+body.light-mode .card {
+  background: #FFFFFF;
+  box-shadow: 0 2px 18px rgba(0, 0, 0, 0.07);
+  border-color: rgba(0, 160, 200, 0.2);
+}
+
+body.light-mode .card:hover {
+  box-shadow: 0 6px 28px rgba(0, 160, 200, 0.2);
+  border-color: rgba(0, 160, 200, 0.5);
+}
+
+body.light-mode .step-item {
+  background: #FFFFFF;
+  border-color: rgba(0, 160, 200, 0.2);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.06);
+}
+
+body.light-mode .footer {
+  background-color: #DDE5F8;
+  border-top: 1px solid rgba(0, 160, 200, 0.2);
+}
+
+body.light-mode .footer p { color: var(--text-body); }
+
+body.light-mode .footer-heading { color: var(--text-heading); }
+
+body.light-mode .footer-links a { color: var(--text-muted); }
+
+body.light-mode .footer-bottom {
+  color: var(--text-muted);
+  border-top-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .pill {
+  background: rgba(0, 160, 200, 0.1);
+  border-color: rgba(0, 160, 200, 0.4);
+}
+
+body.light-mode .btn-outline {
+  border-color: rgba(0, 160, 200, 0.5);
+  color: var(--text-heading) !important;
+}
+
+body.light-mode table {
+  background: #FFFFFF;
+  border-color: rgba(0, 160, 200, 0.25);
+}
+
+body.light-mode th {
+  background: rgba(0, 160, 200, 0.1);
+  color: var(--text-heading);
+}
+
+body.light-mode td {
+  color: var(--text-body);
+  border-bottom-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-mode .hero {
+  background: radial-gradient(circle at 50% 30%, rgba(0, 160, 200, 0.07), transparent 70%);
+}
+
+/* FAQ accordion in light mode */
+body.light-mode .ix-faq-item {
+  border-bottom-color: rgba(0, 0, 0, 0.07);
+}
+body.light-mode .ix-faq-btn {
+  color: var(--text-heading);
+}
+body.light-mode .ix-faq-btn:hover {
+  background: rgba(0, 160, 200, 0.05);
+}
+body.light-mode .ix-faq-btn.ix-active {
+  background: rgba(0, 160, 200, 0.08);
+}
+body.light-mode .ix-faq-body p { color: var(--text-muted); }
+body.light-mode .ix-faq-icon { border-color: rgba(0, 0, 0, 0.15); color: var(--text-muted); }
+
+/* Pricing rows in light mode */
+body.light-mode .pricing-features li {
+  color: var(--text-body);
+  border-bottom-color: rgba(0, 0, 0, 0.06);
+}
+body.light-mode .pricing-old { color: var(--text-muted); }
+body.light-mode .pricing-desc { color: var(--text-body); }
+
+/* Section dark-bg override */
+body.light-mode [style*="background-color: var(--bg-card)"] {
+  background-color: #E8EEFF !important;
+}
+
+/* ── RESPONSIVE EXTRAS ───────────────────────────────────────── */
+
+/* Blog article: sidebar stacks below 900px */
+@media (max-width: 900px) {
+  .grid[style*="320px"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Tablet — steps become 2 columns */
+@media (max-width: 1024px) {
+  .steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile — general fixes */
+@media (max-width: 767px) {
+  /* Steps stack to 1 */
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Tables scroll horizontally instead of overflowing */
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+  /* Restore text wrap inside cells */
+  th, td {
+    white-space: normal;
+    min-width: 120px;
+  }
+
+  /* Tighten container padding */
+  .container { padding: 0 1rem; }
+
+  /* Reduce section padding */
+  .section { padding: 2.5rem 1rem !important; }
+
+  /* Hero padding */
+  .hero { padding: 7rem 1rem 3.5rem !important; }
+
+  /* Ensure flex groups wrap on small screens */
+  .flex-center { flex-wrap: wrap; gap: 0.75rem; }
+
+  /* Navbar hamburger menu full-width items */
+  .nav-links.active a { padding: 0.5rem 0; width: 100%; display: block; }
+
+  /* Smaller heading font on mobile */
+  h1 { font-size: clamp(1.6rem, 7vw, 3rem) !important; }
+  h2 { font-size: clamp(1.25rem, 5vw, 2rem) !important; }
+
+  /* Pricing big number */
+  [style*="font-size:2.6rem"] { font-size: 2.1rem !important; }
+  [style*="font-size: 2.6rem"] { font-size: 2.1rem !important; }
+  [style*="font-size:2.5rem"] { font-size: 2rem !important; }
+
+  /* Buttons full-width when isolated */
+  .step-item .btn { width: 100%; }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .btn {
+    padding: 0.65rem 1rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+  }
+
+  .pill { font-size: 0.78rem; padding: 0.25rem 0.75rem; }
+
+  /* footer bottom stacks cleanly */
+  .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+
+  /* Card inner padding */
+  .card { padding: 1.25rem; }
+  .step-item { padding: 1.5rem 1rem; }
+
+  th, td { padding: 0.6rem 0.75rem; font-size: 0.82rem; }
+}
