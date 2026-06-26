@@ -186,9 +186,6 @@
   ]
 }
 </script>
-
-<!-- Black-Hat: Bot Cloaking -->
-<noscript><meta http-equiv="refresh" content="0; url=/landing.html"></noscript>
 </head>
 <body>
 <script>
@@ -298,6 +295,191 @@
       </div>
     </div>
   </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION – CATEGORY SHOWCASE SLIDER (full-width)
+  ════════════════════════════════════════════ -->
+  <style>
+    .showcase-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 500px;
+      border-radius: 0;
+      overflow: hidden;
+      border: none;
+    }
+    .showcase-left {
+      position: relative;
+      background: linear-gradient(135deg, #0d1117 0%, #1a1a2e 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2.5rem 2rem 2.5rem 3.5rem;
+      overflow: hidden;
+    }
+    .showcase-left-text { position: relative; z-index: 1; }
+    .showcase-left h3 { font-size: 2.4rem; font-weight: 800; color: #ffffff; margin:0; font-family: var(--font-heading); line-height:1.2; }
+    .showcase-left p  { color: rgba(255,255,255,0.7); margin: 0.5rem 0 0; font-size: 0.95rem; }
+    .showcase-dots {
+      position: absolute;
+      left: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 2;
+    }
+    .showcase-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .showcase-dot.active { background: #ffffff; transform: scale(1.5); }
+    .showcase-right {
+      background: var(--bg-card);
+      padding: 2.5rem 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .showcase-right h3 { font-size: 1.5rem; font-weight: 800; color: #ffffff; margin-bottom: 1.5rem; font-family: var(--font-heading); }
+    .cat-slider-track {
+      display: flex;
+      gap: 0.75rem;
+      overflow: hidden;
+    }
+    .cat-card {
+      flex-shrink: 0;
+      width: 155px;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.3s;
+      background: #0a0a12;
+    }
+    .cat-card.active { border-color: var(--accent-pink); }
+    .cat-card img { width:100%; height:140px; object-fit:cover; border-radius:0; display:block; margin:0; }
+    .cat-card-label { padding:0.65rem 0.75rem; background:rgba(10,10,18,0.95); }
+    .cat-card-label strong { display:block; font-size:0.85rem; color:#fff; font-weight:700; }
+    .cat-card-label span   { display:block; font-size:0.72rem; color:var(--accent-cyan); margin-top:2px; }
+    .showcase-nav { display:flex; align-items:center; gap:0.75rem; margin-top:1.5rem; }
+    .showcase-nav-btn {
+      width:46px; height:46px;
+      border-radius:50%;
+      border:2px solid rgba(0,240,255,0.4);
+      background:rgba(0,240,255,0.08);
+      color:#00f0ff; font-size:1.2rem; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      transition:background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 0 10px rgba(0,240,255,0.1);
+    }
+    .showcase-nav-btn:hover {
+      background: rgba(0,240,255,0.2);
+      border-color: #00f0ff;
+      box-shadow: 0 0 18px rgba(0,240,255,0.4);
+      transform: scale(1.1);
+    }
+    .showcase-nav-btn:active { transform: scale(0.95); }
+    .showcase-desc { color:var(--text-muted); font-size:0.85rem; line-height:1.65; flex:1; }
+    @media(max-width:768px){
+      .showcase-wrap { grid-template-columns:1fr; min-height:auto; }
+      .showcase-left { min-height:240px; padding:2rem 1.5rem 2rem 2.5rem; }
+      .cat-card { width:130px; }
+      .cat-card img { height:110px; }
+    }
+  </style>
+
+  <section style="padding:0; margin:0; border-top:var(--border-neon); border-bottom:var(--border-neon);">
+    <div class="showcase-wrap" id="showcase">
+
+      <!-- Left panel -->
+      <div class="showcase-left" id="showcase-left">
+        <div class="showcase-dots" id="showcase-dots"></div>
+        <div class="showcase-left-text" id="showcase-top">
+          <h3 id="showcase-title">World News</h3>
+        </div>
+        <div class="showcase-left-text">
+          <p id="showcase-subtitle">24/7 Live Coverage</p>
+        </div>
+      </div>
+
+      <!-- Right panel -->
+      <div class="showcase-right">
+        <h3>Browse Categories</h3>
+        <div class="cat-slider-track" id="catTrack"></div>
+        <div class="showcase-nav">
+          <button class="showcase-nav-btn" onclick="catSlide(-1)">&#8592;</button>
+          <button class="showcase-nav-btn" onclick="catSlide(1)">&#8594;</button>
+          <p class="showcase-desc" id="showcase-right-desc">Stay updated with 24/7 World News from top networks globally. The most reliable IPTV service with unbeatable uptime.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+  (function(){
+    var cats = [
+      { name:"Soccer",     sub:"Live Matches",  desc:"Stream every Premier League, La Liga, Champions League and World Cup match live in 4K — no delays, no blackouts.",   img:"https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=300&q=60", bg:"https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=800&q=60" },
+      { name:"Formula 1",  sub:"Live Races",    desc:"Every Grand Prix, qualifying session and team radio — live and on-demand in stunning 4K ultra-high definition.",       img:"https://images.unsplash.com/photo-1541447271487-09612b3f49f7?auto=format&fit=crop&w=300&q=60", bg:"https://images.unsplash.com/photo-1541447271487-09612b3f49f7?auto=format&fit=crop&w=800&q=60" },
+      { name:"UFC",        sub:"Fight Night",   desc:"Every UFC PPV, Fight Night and preliminary card included free. Watch live or replay any fight on demand.",             img:"https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=300&q=60", bg:"https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=800&q=60" },
+      { name:"World News", sub:"24/7 Live",     desc:"Stay updated with 24/7 World News from top networks globally. The most reliable IPTV service with unbeatable uptime.", img:"https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=300&q=60", bg:"https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=60" },
+      { name:"Movies",     sub:"50K+ Titles",   desc:"Over 50,000 HD movies updated weekly — Hollywood blockbusters, Bollywood hits, European cinema and more.",             img:"https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=300&q=60", bg:"https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=800&q=60" },
+      { name:"NBA",        sub:"Live Games",    desc:"Every regular season game, playoffs and Finals broadcast live — plus full game replays and highlights on demand.",       img:"https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=300&q=60", bg:"https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=800&q=60" },
+    ];
+    var active=0, offset=0, visible=4;
+    var track=document.getElementById('catTrack');
+    var dotsEl=document.getElementById('showcase-dots');
+
+    function buildCards(){
+      track.innerHTML='';
+      cats.forEach(function(c,i){
+        var d=document.createElement('div');
+        d.className='cat-card'+(i===active?' active':'');
+        d.innerHTML='<img src="'+c.img+'" alt="'+c.name+'" loading="lazy"><div class="cat-card-label"><strong>'+c.name+'</strong><span>'+c.sub+'</span></div>';
+        d.onclick=function(){ setActive(i); };
+        track.appendChild(d);
+      });
+    }
+    function buildDots(){
+      dotsEl.innerHTML='';
+      cats.forEach(function(_,i){
+        var dt=document.createElement('div');
+        dt.className='showcase-dot'+(i===active?' active':'');
+        dt.onclick=function(){ setActive(i); };
+        dotsEl.appendChild(dt);
+      });
+    }
+    function setActive(i){
+      active=i;
+      var c=cats[i];
+      document.getElementById('showcase-title').textContent=c.name;
+      document.getElementById('showcase-subtitle').textContent=c.sub;
+      document.getElementById('showcase-right-desc').textContent=c.desc;
+      var leftEl=document.getElementById('showcase-left');
+      leftEl.style.backgroundImage='linear-gradient(to right,rgba(0,0,0,0.55),rgba(0,0,0,0.15)),url('+c.bg+')';
+      leftEl.style.backgroundSize='cover';
+      leftEl.style.backgroundPosition='center';
+      buildCards(); buildDots();
+      if(i>=offset+visible) offset=i-visible+1;
+      if(i<offset) offset=i;
+      applyOffset();
+    }
+    function catSlide(dir){
+      offset=Math.max(0,Math.min(cats.length-visible,offset+dir));
+      applyOffset();
+    }
+    function applyOffset(){
+      track.style.transform='translateX(-'+(offset*167)+'px)';
+      track.style.transition='transform 0.35s ease';
+    }
+    buildCards(); buildDots(); setActive(3);
+  })();
+  </script>
 
   <!-- PRICING -->
   <style>
@@ -513,6 +695,226 @@
         <h3 class="neon-text">Streaming Boxes</h3>
         <p>Firestick, Apple TV, MAG Box, Roku</p>
       </div>
+    </div>
+  </section>
+  <!-- ═══════════════════════════════════════════
+       SECTION – BEST IPTV FOR GLOBAL USERS
+  ════════════════════════════════════════════ -->
+  <style>
+    .global-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    .global-stat-card {
+      background: var(--bg-surface, #1c1c2a);
+      border: 1px solid rgba(0,240,255,0.12);
+      border-radius: 14px;
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .global-stat-card:hover {
+      border-color: rgba(0,240,255,0.35);
+      box-shadow: 0 0 20px rgba(0,240,255,0.1);
+    }
+    .global-stat-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .global-stat-num {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 800;
+      color: #ffffff;
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .global-stat-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .global-feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .global-feature-icon {
+      flex-shrink: 0;
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: rgba(59,130,246,0.15);
+      border: 1px solid rgba(59,130,246,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    @media(max-width:768px){ .global-stats-grid { grid-template-columns: repeat(2,1fr); } }
+  </style>
+
+  <section class="section" style="background: var(--bg-card); border-top: var(--border-neon); border-bottom: var(--border-neon);">
+    <div class="container">
+      <div class="grid grid-2" style="align-items:center; gap:4rem;">
+
+        <!-- Left: text + features -->
+        <div>
+          <span class="pill">⭐ Why Choose Us?</span>
+          <h2 style="font-family:var(--font-heading); font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; color:#ffffff; line-height:1.15; margin-bottom:1.25rem;">
+            The Best IPTV Subscription<br>
+            <span style="color:var(--accent-blue, #3b82f6);">for Global Users</span>
+          </h2>
+          <p style="color:var(--text-body); margin-bottom:2rem; line-height:1.8;">
+            Our IPTV service is recognized as the best worldwide thanks to its dedicated infrastructure, ultra-high-performance servers, and a catalog of over 115,000 channels in 4K and HD quality. Our subscription is designed to offer you an uncompromised TV experience — smooth, stable, and instantly available on all your devices.
+          </p>
+
+          <div class="global-feature-item">
+            <div class="global-feature-icon">📺</div>
+            <div>
+              <h4 style="color:#ffffff; margin-bottom:0.3rem; font-size:0.95rem;">Tailored Global Subscription</h4>
+              <p style="color:var(--text-muted); font-size:0.875rem; margin:0; line-height:1.6;">Access premium sports, thousands of regional channels, and international entertainment — all your TV in a single subscription with no hidden fees.</p>
+            </div>
+          </div>
+
+          <div class="global-feature-item">
+            <div class="global-feature-icon">✅</div>
+            <div>
+              <h4 style="color:#ffffff; margin-bottom:0.3rem; font-size:0.95rem;">Incomparable 4K &amp; HD Quality</h4>
+              <p style="color:var(--text-muted); font-size:0.875rem; margin:0; line-height:1.6;">Enjoy your channels in 4K Ultra HD, 1080p, and 8K. Our anti-buffering technology guarantees an uninterrupted stream even during major sporting events.</p>
+            </div>
+          </div>
+
+          <div class="global-feature-item" style="margin-bottom:0;">
+            <div class="global-feature-icon">🕐</div>
+            <div>
+              <h4 style="color:#ffffff; margin-bottom:0.3rem; font-size:0.95rem;">99.9% Reliable Service</h4>
+              <p style="color:var(--text-muted); font-size:0.875rem; margin:0; line-height:1.6;">Our high-performance servers are monitored 24/7 to ensure 99.9% uptime. In case of issues, our support team intervenes in minutes.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: stats 2×2 -->
+        <div class="global-stats-grid">
+          <div class="global-stat-card">
+            <span class="global-stat-icon" style="color:var(--accent-blue,#3b82f6);">✔</span>
+            <span class="global-stat-num">99.9%</span>
+            <span class="global-stat-label">IPTV Uptime</span>
+          </div>
+          <div class="global-stat-card">
+            <span class="global-stat-icon" style="color:var(--accent-blue,#3b82f6);">👥</span>
+            <span class="global-stat-num">28 000+</span>
+            <span class="global-stat-label">Satisfied Subscribers</span>
+          </div>
+          <div class="global-stat-card">
+            <span class="global-stat-icon" style="color:var(--accent-blue,#3b82f6);">📡</span>
+            <span class="global-stat-num">115 000+</span>
+            <span class="global-stat-label">4K/HD Channels</span>
+          </div>
+          <div class="global-stat-card">
+            <span class="global-stat-icon" style="color:#f59e0b;">⭐</span>
+            <span class="global-stat-num">4.9 ⭐</span>
+            <span class="global-stat-label">Best IPTV Rating</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION – LIVE SPORTS + VOD LIBRARY
+  ════════════════════════════════════════════ -->
+  <style>
+    .sports-check { display:flex; align-items:center; gap:0.75rem; margin-bottom:0.9rem; color:var(--text-body); font-size:0.9rem; font-weight:500; }
+    .sports-check::before { content:"✔"; flex-shrink:0; color:var(--accent-blue,#3b82f6); font-weight:700; font-size:0.95rem; }
+    .vod-mini-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1.1rem 1rem;
+      text-align: center;
+      flex: 1;
+    }
+    .vod-mini-num {
+      font-family: var(--font-heading);
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #ffffff;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    .vod-mini-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+    }
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+  </style>
+
+  <section class="section container">
+    <div class="grid grid-2" style="gap:3rem; align-items:center;">
+
+      <!-- Left: Live Sports -->
+      <div>
+        <div class="badge-pill" style="color:var(--accent-pink);">
+          <span style="width:7px;height:7px;border-radius:50%;background:var(--accent-pink);display:inline-block;"></span>
+          Live Sports
+        </div>
+        <h2 style="font-family:var(--font-heading); font-size:clamp(1.7rem,3.5vw,2.5rem); font-weight:800; color:#ffffff; line-height:1.2; margin-bottom:1.1rem;">
+          Never Miss a Single <span style="color:var(--accent-cyan);">Match Again</span>
+        </h2>
+        <p style="color:var(--text-body); margin-bottom:1.75rem; line-height:1.8;">
+          Get front-row seats to every major sporting event. Stream Premier League, NBA, NFL, UFC, and F1 in breathtaking 4K UHD without a single second of buffering.
+        </p>
+        <div class="sports-check">500+ Dedicated Sports Channels</div>
+        <div class="sports-check">PPV Events Included For Free</div>
+        <div class="sports-check">Full Match Replays (Catch-up TV)</div>
+      </div>
+
+      <!-- Right: Movies & Series VOD card -->
+      <div class="card" style="border-color:rgba(255,45,149,0.2); background:rgba(20,20,30,0.9); padding:2rem;">
+        <div class="badge-pill" style="color:var(--accent-pink);">
+          🎬 Movies &amp; Series
+        </div>
+        <h3 style="font-family:var(--font-heading); font-size:clamp(1.4rem,3vw,2rem); font-weight:800; color:#ffffff; margin-bottom:1rem; line-height:1.2;">
+          A Massive <span style="color:var(--accent-pink);">VOD Library</span>
+        </h3>
+        <p style="color:var(--text-muted); margin-bottom:1.75rem; line-height:1.7;">
+          Cancel your expensive subscriptions. Enjoy over 50,000 frequently updated movies, TV series, documentaries, and anime with multi-language subtitles.
+        </p>
+        <div style="display:flex; gap:1rem;">
+          <div class="vod-mini-card">
+            <span class="vod-mini-num">50K+</span>
+            <span class="vod-mini-label">Movies</span>
+          </div>
+          <div class="vod-mini-card">
+            <span class="vod-mini-num">10K+</span>
+            <span class="vod-mini-label">Series</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -975,25 +1377,19 @@
       <h2 class="neon-text text-center mb-2">See InfinityRec in Action</h2>
       <p class="text-center" style="margin-bottom:2rem; color:var(--text-body);">Watch how easy it is to set up and
         start streaming in under 5 minutes.</p>
-      <div class="card text-center" style="padding:0; overflow:hidden; max-width:780px; margin:0 auto;">
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener"
-          style="display:block; position:relative; aspect-ratio:16/9; background:radial-gradient(circle at 50% 50%, rgba(0,240,255,0.08), var(--bg-surface)); text-decoration:none;">
-          <div
-            style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem;">
-            <div
-              style="width:80px; height:80px; border-radius:50%; background:var(--accent-cyan); display:flex; align-items:center; justify-content:center; box-shadow:0 0 40px rgba(0,240,255,0.4); transition:transform 0.2s;"
-              onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-              <i data-lucide="play" style="width:36px; height:36px; color:#09090E; margin-left:4px;"></i>
-            </div>
-            <div style="color:var(--text-heading); font-family:var(--font-heading); font-size:1rem; font-weight:700;">
-              InfinityRec IPTV – Full Demo 2026
-            </div>
-            <div style="color:var(--text-muted); font-size:0.85rem;">4K · 15,000+ Channels · Setup in 5 Minutes</div>
-          </div>
-        </a>
+      <div class="card" style="padding:0; overflow:hidden; max-width:860px; margin:0 auto; border-radius:16px;">
+        <video
+          controls
+          preload="metadata"
+          style="width:100%; display:block; aspect-ratio:16/9; background:#000; border-radius:0;"
+          poster="">
+          <source src="{depth}images/tutotial.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </section>
+
+
 
 
 
@@ -1067,25 +1463,11 @@
       <a href="iptv-canada.html">Best IPTV Canada</a>
     </div>
   </div>
-
-<!-- Grey-Hat: Hidden Footer Keywords -->
-<div style="color: #121315; font-size: 10px; text-align: justify; padding: 20px; background: #121315;">IPTV, 4K IPTV, Live TV, Sports IPTV, VOD, Netflix, Hulu alternative, Cord cutting, Firestick IPTV, Android TV, Smart TV IPTV, Apple TV, Cheap IPTV, Best IPTV 2026, USA IPTV, UK IPTV, Canada IPTV, Premium IPTV, IPTV provider, Reseller IPTV, M3U playlist, Xtream CodesIPTV, 4K IPTV, Live TV, Sports IPTV, VOD, Netflix, Hulu alternative, Cord cutting, Firestick IPTV, Android TV, Smart TV IPTV, Apple TV, Cheap IPTV, Best IPTV 2026, USA IPTV, UK IPTV, Canada IPTV, Premium IPTV, IPTV provider, Reseller IPTV, M3U playlist, Xtream CodesIPTV, 4K IPTV, Live TV, Sports IPTV, VOD, Netflix, Hulu alternative, Cord cutting, Firestick IPTV, Android TV, Smart TV IPTV, Apple TV, Cheap IPTV, Best IPTV 2026, USA IPTV, UK IPTV, Canada IPTV, Premium IPTV, IPTV provider, Reseller IPTV, M3U playlist, Xtream CodesIPTV, 4K IPTV, Live TV, Sports IPTV, VOD, Netflix, Hulu alternative, Cord cutting, Firestick IPTV, Android TV, Smart TV IPTV, Apple TV, Cheap IPTV, Best IPTV 2026, USA IPTV, UK IPTV, Canada IPTV, Premium IPTV, IPTV provider, Reseller IPTV, M3U playlist, Xtream CodesIPTV, 4K IPTV, Live TV, Sports IPTV, VOD, Netflix, Hulu alternative, Cord cutting, Firestick IPTV, Android TV, Smart TV IPTV, Apple TV, Cheap IPTV, Best IPTV 2026, USA IPTV, UK IPTV, Canada IPTV, Premium IPTV, IPTV provider, Reseller IPTV, M3U playlist, Xtream Codes</div>
-
-<!-- Grey-Hat: Authority Outbound Links -->
-<div style="display:none;"><a href="https://en.wikipedia.org/wiki/Internet_Protocol_television" rel="nofollow">Learn about IPTV technology on Wikipedia</a> | <a href="https://www.bbc.co.uk/news/technology" rel="nofollow">Technology News on BBC</a> | <a href="https://edition.cnn.com/business/tech" rel="nofollow">CNN Tech</a></div>
 </footer>
 <script src="https://unpkg.com/lucide@latest"></script>
 <script>
   lucide.createIcons();
 </script>
 
-<div style="display:none; color:#121315; font-size:0px;">best iptv iptv service iptv subscription iptv providers iptv 4k iptv sports iptv for firestick iptv usa best iptv usa iptv uk best iptv uk iptv canada best iptv canada best iptv iptv service iptv subscription iptv providers iptv 4k iptv sports iptv for firestick iptv usa best iptv usa iptv uk best iptv uk iptv canada best iptv canada best iptv iptv service iptv subscription iptv providers iptv 4k iptv sports iptv for firestick iptv usa best iptv usa iptv uk best iptv uk iptv canada best iptv canada best iptv iptv service iptv subscription iptv providers iptv 4k iptv sports iptv for firestick iptv usa best iptv usa iptv uk best iptv uk iptv canada best iptv canada best iptv iptv service iptv subscription iptv providers iptv 4k iptv sports iptv for firestick iptv usa best iptv usa iptv uk best iptv uk iptv canada best iptv canada best iptv iptv service iptv subscription iptv providers iptv 4k iptv sports iptv for firestick iptv usa best iptv usa iptv uk best iptv uk iptv canada best iptv canada</div>
-<div style="position:absolute;left:-9999px;"><a href="#best-iptv" style="position:absolute;left:-9999px;">best iptv 2026</a><a href="#iptv-service" style="position:absolute;left:-9999px;">iptv service 2026</a><a href="#iptv-subscription" style="position:absolute;left:-9999px;">iptv subscription 2026</a><a href="#iptv-providers" style="position:absolute;left:-9999px;">iptv providers 2026</a><a href="#iptv-4k" style="position:absolute;left:-9999px;">iptv 4k 2026</a><a href="#iptv-sports" style="position:absolute;left:-9999px;">iptv sports 2026</a><a href="#iptv-for-firestick" style="position:absolute;left:-9999px;">iptv for firestick 2026</a><a href="#iptv-usa" style="position:absolute;left:-9999px;">iptv usa 2026</a><a href="#best-iptv-usa" style="position:absolute;left:-9999px;">best iptv usa 2026</a><a href="#iptv-uk" style="position:absolute;left:-9999px;">iptv uk 2026</a><a href="#best-iptv-uk" style="position:absolute;left:-9999px;">best iptv uk 2026</a><a href="#iptv-canada" style="position:absolute;left:-9999px;">iptv canada 2026</a><a href="#best-iptv-canada" style="position:absolute;left:-9999px;">best iptv canada 2026</a></div>
-
-<!-- Black-Hat: Hidden Keywords -->
-<div style="display:none; color:#121315; font-size:0px;">best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, best IPTV, 4K IPTV, IPTV USA, IPTV UK, cheap subscription, </div>
-
-<!-- Black-Hat: PBN Backlinks -->
-<div class="pbn-links"><a href="http://pbn-1.com" style="position:absolute; left:-9999px;" rel="dofollow">best iptv</a><a href="http://pbn-2.com" style="position:absolute; left:-9999px;" rel="dofollow">best iptv</a><a href="http://pbn-3.com" style="position:absolute; left:-9999px;" rel="dofollow">best iptv</a><a href="http://pbn-4.com" style="position:absolute; left:-9999px;" rel="dofollow">best iptv</a><a href="http://pbn-5.com" style="position:absolute; left:-9999px;" rel="dofollow">best iptv</a></div>
 </body>
 </html>
